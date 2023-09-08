@@ -9,9 +9,50 @@
       sizes="32x32"
       href="./assets/images/favicon-32x32.png"
     />
-    <link rel="stylesheet" href="styles/reset.css">
-    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/reset.css" />
+    <link rel="stylesheet" href="styles/style.css" />
     <title>Frontend Mentor | Age calculator app</title>
   </head>
-  <body></body>
+  <body>
+    <div class="container">
+      <div class="inputs-container">
+        <div class="input-container">
+          <div><label for="day">Day</label></div>
+          <div>
+            <input type="text" name="day" id="day" placeholder="DD" />
+          </div>
+        </div>
+        <div class="input-container">
+          <div><label for="month">Month</label></div>
+          <div>
+            <input type="text" name="month" id="month" placeholder="MM" />
+          </div>
+        </div>
+        <div class="input-container">
+          <div><label for="year">Year</label></div>
+          <div>
+            <input type="text" name="year" id="year" placeholder="YYYY" />
+          </div>
+        </div>
+      </div>
+      <div class="divider-button-container">
+        <div class="horizontal-divider"></div>
+        <button class="submit-btn"><img src="assets/images/icon-arrow.svg" alt=""></button>
+      </div>
+      <div class="outputs-container">
+        <div class="output-container">
+          <div class="output-val output-year">--</div>
+          <div>years</div>
+        </div>
+        <div class="output-container">
+          <div class="output-val output-month">--</div>
+          <div>months</div>
+        </div>
+        <div class="output-container">
+          <div class="output-val output-day">--</div>
+          <div>days</div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

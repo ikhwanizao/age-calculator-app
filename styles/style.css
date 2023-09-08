@@ -1,2 +1,89 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,700;1,400;1,800&display=swap");
 
+* {
+  font-family: "Poppins", sans-serif;
+  caret-color: var(--Purple);
+}
+
+:root {
+  --Purple: hsl(259, 100%, 65%);
+  --Light-red: hsl(0, 100%, 67%);
+  --White: hsl(0, 0%, 100%);
+  --Off-white: hsl(0, 0%, 94%);
+  --Light-grey: hsl(0, 0%, 86%);
+  --Smokey-grey: hsl(0, 1%, 44%);
+  --Off-black: hsl(0, 0%, 8%);
+}
+
+body {
+  height: 100vh;
+  background-color: var(--Off-white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  background-color: var(--White);
+  padding: 3em;
+  border-radius: 16px 16px 136px 16px;
+}
+
+input {
+  border: 1px solid var(--Light-grey);
+  outline: none;
+  font-size: 2rem;
+  width: 150px;
+  padding: .15em 0.55em;
+  border-radius: 6px;
+}
+
+input:focus {
+    border-color: var(--Purple);
+}
+
+.input-container div label {
+  font-size: 0.75rem;
+  color: var(--Smokey-grey);
+  letter-spacing: 0.2rem;
+}
+
+.inputs-container {
+  width: 500px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.divider-button-container {
+    display: flex;
+    align-items: center;
+}
+
+.horizontal-divider {
+    width: 600px;
+    border: 1px solid var(--Off-white);
+}
+
+.submit-btn {
+    border: none;
+    border-radius: 50%;
+    background-color: var(--Purple);
+    padding: 1.5em;
+    cursor: pointer;
+}
+
+.submit-btn:active {
+    background-color: var(--Off-black);
+}
+
+.output-container {
+    font-size: 6rem;
+    font-weight: 800;
+    font-style: italic;
+    display: flex;
+}
+
+.output-val {
+    color: var(--Purple);
+    margin-right: .1em;
+}
