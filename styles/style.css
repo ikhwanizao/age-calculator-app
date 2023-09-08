@@ -25,8 +25,8 @@ body {
 
 .container {
   background-color: var(--White);
-  padding: 3em;
-  border-radius: 16px 16px 136px 16px;
+  padding: 2em 3em;
+  border-radius: 16px 16px 200px 16px;
 }
 
 input {
@@ -34,12 +34,12 @@ input {
   outline: none;
   font-size: 2rem;
   width: 150px;
-  padding: .15em 0.55em;
+  padding: 0.15em 0.55em;
   border-radius: 6px;
 }
 
 input:focus {
-    border-color: var(--Purple);
+  border-color: var(--Purple);
 }
 
 .input-container div label {
@@ -55,35 +55,114 @@ input:focus {
 }
 
 .divider-button-container {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .horizontal-divider {
-    width: 600px;
-    border: 1px solid var(--Off-white);
+  width: 600px;
+  border: 1px solid var(--Off-white);
 }
 
 .submit-btn {
-    border: none;
-    border-radius: 50%;
-    background-color: var(--Purple);
-    padding: 1.5em;
-    cursor: pointer;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--Purple);
+  padding: 1.5em;
+  cursor: pointer;
 }
 
 .submit-btn:active {
-    background-color: var(--Off-black);
+  background-color: var(--Off-black);
 }
 
 .output-container {
-    font-size: 6rem;
-    font-weight: 800;
-    font-style: italic;
-    display: flex;
+  font-size: 6rem;
+  font-weight: 800;
+  font-style: italic;
+  display: flex;
 }
 
 .output-val {
-    color: var(--Purple);
-    margin-right: .1em;
+  color: var(--Purple);
+  margin-right: 0.1em;
+}
+
+@media only screen and (max-width: 768px) {
+  .output-container {
+    font-size: 4rem;
+  }
+
+  .horizontal-divider {
+    width: 400px;
+  }
+
+  .inputs-container {
+    width: 350px;
+  }
+
+  input {
+    width: 100px;
+    font-size: 1.5rem;
+  }
+}
+
+@media only screen and (max-height: 564px) {
+    .output-container {
+        font-size: 4rem;
+    }
+
+    .horizontal-divider {
+        width: 400px;
+    }
+
+    input {
+        width: 100px;
+        font-size: 1.5rem;
+    }
+
+    .inputs-container {
+        width: 350px;
+    }
+}
+
+@media only screen and (max-width: 620px) {
+  .output-container {
+    font-size: 3rem;
+  }
+
+  .horizontal-divider {
+    position: relative;
+    width: 100%;
+  }
+
+  .inputs-container {
+    width: 300px;
+  }
+
+  input {
+    width: 80px;
+    font-size: 1.25rem;
+  }
+
+  .container {
+    background-color: var(--White);
+    padding: 2em;
+    border-radius: 16px 16px 132px 16px;
+  }
+
+  .divider-button-container {
+    position: relative;
+    margin: 3em 0;
+  }
+
+  button {
+    width: 70px;
+  }
+
+  .submit-btn {
+    position: absolute;
+    left: 120px;
+    z-index: 1;
+  }
 }
