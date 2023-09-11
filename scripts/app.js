@@ -16,6 +16,8 @@ const dayInput = document.getElementById("day");
 const monthInput = document.getElementById("month");
 const yearInput = document.getElementById("year");
 
+const CURRENT_YEAR = new Date().getFullYear();
+
 function calcAge() {
   var d1 = document.getElementById("day").value;
   var m1 = document.getElementById("month").value;
@@ -44,39 +46,75 @@ function calcAge() {
   dayOutput.innerHTML = d;
 }
 
-function inputValidation(input, label, requiredLabel, dateType, minVal, maxVal, currentYear) {
-  input.addEventListener("input", () => {
-    if (input.value === "") {
-      label.style.color = "var(--Light-red)";
-      requiredLabel.style.display = "block";
-      requiredLabel.innerHTML = "This field is required";
-      document.getElementById(dateType).style.border =
-        "1px solid var(--Light-red)";
-    } else if (input.value < minVal || input.value > maxVal || input.value > currentYear) {
-      label.style.color = "var(--Light-red)";
-      if (dateType === "year" && input.value > currentYear) {
-        requiredLabel.innerHTML = "Must be in the past";
-      } else {
-        requiredLabel.innerHTML = "Must be a valid " + dateType;
-      }
-      requiredLabel.style.display = "block";
-      document.getElementById(dateType).style.border =
-        "1px solid var(--Light-red)";
-    } else {
-      label.style.color = "";
-      requiredLabel.style.display = "none";
-      document.getElementById(dateType).style.border = "";
-    }
-  });
-}
-
-// Replace CURRENT_YEAR with the current year (e.g., 2023)
-const CURRENT_YEAR = new Date().getFullYear();
-
-inputValidation(dayInput, dayLabel, requiredLabelDay, "day", 1, 31, CURRENT_YEAR);
-inputValidation(monthInput, monthLabel, requiredLabelMonth, "month", 1, 12, CURRENT_YEAR);
-inputValidation(yearInput, yearLabel, requiredLabelYear, "year", 1900, CURRENT_YEAR, CURRENT_YEAR);
-
 submitBtn.addEventListener("click", () => {
-  calcAge();
+  const isDayValid = validateInput(
+    dayInput,
+    dayLabel,
+    requiredLabelDay,
+    "day",
+    1,
+    31,
+    CURRENT_YEAR
+  );
+  const isMonthValid = validateInput(
+    monthInput,
+    monthLabel,
+    requiredLabelMonth,
+    "month",
+    1,
+    12,
+    CURRENT_YEAR
+  );
+  const isYearValid = validateInput(
+    yearInput,
+    yearLabel,
+    requiredLabelYear,
+    "year",
+    1900,
+    CURRENT_YEAR,
+    CURRENT_YEAR
+  );
+
+  if (isDayValid && isMonthValid && isYearValid) {
+    calcAge();
+  }
 });
+
+function validateInput(
+  input,
+  label,
+  requiredLabel,
+  dateType,
+  minVal,
+  maxVal,
+  currentYear
+) {
+  if (input.value === "") {
+    label.style.color = "var(--Light-red)";
+    requiredLabel.style.display = "block";
+    requiredLabel.innerHTML = "This field is required";
+    document.getElementById(dateType).style.border =
+      "1px solid var(--Light-red)";
+    return false;
+  } else if (
+    input.value < minVal ||
+    input.value > maxVal ||
+    input.value > currentYear
+  ) {
+    label.style.color = "var(--Light-red)";
+    if (dateType === "year" && input.value > currentYear) {
+      requiredLabel.innerHTML = "Must be in the past";
+    } else {
+      requiredLabel.innerHTML = "Must be a valid " + dateType;
+    }
+    requiredLabel.style.display = "block";
+    document.getElementById(dateType).style.border =
+      "1px solid var(--Light-red)";
+    return false;
+  } else {
+    label.style.color = "";
+    requiredLabel.style.display = "none";
+    document.getElementById(dateType).style.border = "";
+    return true;
+  }
+}
