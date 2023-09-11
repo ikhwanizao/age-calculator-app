@@ -54,6 +54,14 @@ input:focus {
   justify-content: space-between;
 }
 
+.required-field {
+  color: var(--Light-red);
+  margin-top: .3rem;
+  font-size: .55rem;
+  font-style: italic;
+  display: none;
+}
+
 .divider-button-container {
   display: flex;
   align-items: center;
