@@ -1,11 +1,22 @@
 const submitBtn = document.querySelector(".js-submit-btn");
 
+const dayLabel = document.querySelector(".js-day-label");
+const monthLabel = document.querySelector(".js-month-label");
+const yearLabel = document.querySelector(".js-year-label");
+
+const requiredLabelDay = document.querySelector(".js-required-field-day");
+const requiredLabelMonth = document.querySelector(".js-required-field-month");
+const requiredLabelYear = document.querySelector(".js-required-field-year");
+
 const yearOutput = document.querySelector(".js-output-year");
 const monthOutput = document.querySelector(".js-output-month");
 const dayOutput = document.querySelector(".js-output-day");
 
+const dayInput = document.getElementById("day");
+const monthInput = document.getElementById("month");
+const yearInput = document.getElementById("year");
 
-submitBtn.addEventListener("click", () => {
+function calcAge() {
   var d1 = document.getElementById("day").value;
   var m1 = document.getElementById("month").value;
   var y1 = document.getElementById("year").value;
@@ -31,5 +42,26 @@ submitBtn.addEventListener("click", () => {
   yearOutput.innerHTML = y;
   monthOutput.innerHTML = m;
   dayOutput.innerHTML = d;
+}
 
+function emptyInput(input, label, requiredLabel, dateType) {
+  input.addEventListener("input", () => {
+    if (input.value === "") {
+      label.style.color = "var(--Light-red)";
+      requiredLabel.style.display = "block";
+      document.getElementById(dateType).style.border = "1px solid var(--Light-red)";
+    } else {
+      label.style.color = "";
+      requiredLabel.style.display = "none";
+      document.getElementById(dateType).style.border = "";
+    }
+  });
+}
+
+emptyInput(dayInput, dayLabel, requiredLabelDay, "day");
+emptyInput(monthInput, monthLabel, requiredLabelMonth, "month");
+emptyInput(yearInput, yearLabel, requiredLabelYear, "year");
+
+submitBtn.addEventListener("click", () => {
+  calcAge();
 });
