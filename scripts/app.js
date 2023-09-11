@@ -44,12 +44,24 @@ function calcAge() {
   dayOutput.innerHTML = d;
 }
 
-function emptyInput(input, label, requiredLabel, dateType) {
+function inputValidation(input, label, requiredLabel, dateType, minVal, maxVal, currentYear) {
   input.addEventListener("input", () => {
     if (input.value === "") {
       label.style.color = "var(--Light-red)";
       requiredLabel.style.display = "block";
-      document.getElementById(dateType).style.border = "1px solid var(--Light-red)";
+      requiredLabel.innerHTML = "This field is required";
+      document.getElementById(dateType).style.border =
+        "1px solid var(--Light-red)";
+    } else if (input.value < minVal || input.value > maxVal || input.value > currentYear) {
+      label.style.color = "var(--Light-red)";
+      if (dateType === "year" && input.value > currentYear) {
+        requiredLabel.innerHTML = "Must be in the past";
+      } else {
+        requiredLabel.innerHTML = "Must be a valid " + dateType;
+      }
+      requiredLabel.style.display = "block";
+      document.getElementById(dateType).style.border =
+        "1px solid var(--Light-red)";
     } else {
       label.style.color = "";
       requiredLabel.style.display = "none";
@@ -58,9 +70,12 @@ function emptyInput(input, label, requiredLabel, dateType) {
   });
 }
 
-emptyInput(dayInput, dayLabel, requiredLabelDay, "day");
-emptyInput(monthInput, monthLabel, requiredLabelMonth, "month");
-emptyInput(yearInput, yearLabel, requiredLabelYear, "year");
+// Replace CURRENT_YEAR with the current year (e.g., 2023)
+const CURRENT_YEAR = new Date().getFullYear();
+
+inputValidation(dayInput, dayLabel, requiredLabelDay, "day", 1, 31, CURRENT_YEAR);
+inputValidation(monthInput, monthLabel, requiredLabelMonth, "month", 1, 12, CURRENT_YEAR);
+inputValidation(yearInput, yearLabel, requiredLabelYear, "year", 1900, CURRENT_YEAR, CURRENT_YEAR);
 
 submitBtn.addEventListener("click", () => {
   calcAge();
