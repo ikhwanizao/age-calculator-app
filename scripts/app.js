@@ -80,41 +80,49 @@ submitBtn.addEventListener("click", () => {
   }
 });
 
-function validateInput(
-  input,
-  label,
-  requiredLabel,
-  dateType,
-  minVal,
-  maxVal,
-  currentYear
-) {
-  if (input.value === "") {
+function validateInput(input, label, requiredLabel, dateType, minVal, maxVal, currentYear) {
+  const inputValue = input.value;
+  const inputValueNumber = Number(inputValue);
+
+  if (inputValue === "") {
+    // Handle empty input
     label.style.color = "var(--Light-red)";
     requiredLabel.style.display = "block";
     requiredLabel.innerHTML = "This field is required";
-    document.getElementById(dateType).style.border =
-      "1px solid var(--Light-red)";
+    document.getElementById(dateType).style.border = "1px solid var(--Light-red)";
     return false;
-  } else if (
-    input.value < minVal ||
-    input.value > maxVal ||
-    input.value > currentYear
-  ) {
+  } else if (isNaN(inputValueNumber) || inputValueNumber < minVal || inputValueNumber > maxVal) {
+    // Handle invalid number or out-of-range input
     label.style.color = "var(--Light-red)";
-    if (dateType === "year" && input.value > currentYear) {
-      requiredLabel.innerHTML = "Must be in the past";
-    } else {
-      requiredLabel.innerHTML = "Must be a valid " + dateType;
-    }
+    requiredLabel.innerHTML = "Must be a valid " + dateType;
     requiredLabel.style.display = "block";
-    document.getElementById(dateType).style.border =
-      "1px solid var(--Light-red)";
+    document.getElementById(dateType).style.border = "1px solid var(--Light-red)";
     return false;
-  } else {
-    label.style.color = "";
-    requiredLabel.style.display = "none";
-    document.getElementById(dateType).style.border = "";
-    return true;
+  } else if (dateType === "day") {
+    // Check for valid day based on selected month
+    const selectedMonth = Number(monthInput.value);
+    const daysInMonth = new Date(currentYear, selectedMonth, 0).getDate();
+
+    if (inputValueNumber > daysInMonth) {
+      label.style.color = "var(--Light-red)";
+      requiredLabel.innerHTML = "Must be a valid date";
+      requiredLabel.style.display = "block";
+      document.getElementById(dateType).style.border = "1px solid var(--Light-red)";
+      return false;
+    }
+  } else if (dateType === "year" && inputValueNumber > currentYear) {
+    // Handle year in the future
+    label.style.color = "var(--Light-red)";
+    requiredLabel.innerHTML = "Must be in the past";
+    requiredLabel.style.display = "block";
+    document.getElementById(dateType).style.border = "1px solid var(--Light-red)";
+    return false;
   }
+
+  // If all checks pass, the input is considered valid
+  label.style.color = "";
+  requiredLabel.style.display = "none";
+  document.getElementById(dateType).style.border = "";
+  return true;
 }
+
