@@ -19,27 +19,27 @@ const yearInput = document.getElementById("year");
 const CURRENT_YEAR = new Date().getFullYear();
 
 function calcAge() {
-  var d1 = document.getElementById("day").value;
-  var m1 = document.getElementById("month").value;
-  var y1 = document.getElementById("year").value;
+  var dayVal = document.getElementById("day").value;
+  var monthVal = document.getElementById("month").value;
+  var yearVal = document.getElementById("year").value;
 
   var date = new Date();
-  var d2 = date.getDate();
-  var m2 = 1 + date.getMonth();
-  var y2 = date.getFullYear();
+  var nowDay = date.getDate();
+  var nowMonth = 1 + date.getMonth();
+  var yearMonth = date.getFullYear();
   var month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
-  if (d1 > d2) {
-    d2 = d2 + month[m2 - 1];
-    m2 = m2 - 1;
+  if (dayVal > nowDay) {
+    nowDay = nowDay + month[nowMonth - 1];
+    nowMonth = nowMonth - 1;
   }
-  if (m1 > m2) {
-    m2 = m2 + 12;
-    y2 = y2 - 1;
+  if (monthVal > nowMonth) {
+    nowMonth = nowMonth + 12;
+    yearMonth = yearMonth - 1;
   }
-  var d = d2 - d1;
-  var m = m2 - m1;
-  var y = y2 - y1;
+  var d = nowDay - dayVal;
+  var m = nowMonth - monthVal;
+  var y = yearMonth - yearVal;
 
   yearOutput.innerHTML = y;
   monthOutput.innerHTML = m;
@@ -80,7 +80,15 @@ submitBtn.addEventListener("click", () => {
   }
 });
 
-function validateInput(input, label, requiredLabel, dateType, minVal, maxVal, currentYear) {
+function validateInput(
+  input,
+  label,
+  requiredLabel,
+  dateType,
+  minVal,
+  maxVal,
+  currentYear
+) {
   const inputValue = input.value;
   const inputValueNumber = Number(inputValue);
 
@@ -89,14 +97,20 @@ function validateInput(input, label, requiredLabel, dateType, minVal, maxVal, cu
     label.style.color = "var(--Light-red)";
     requiredLabel.style.display = "block";
     requiredLabel.innerHTML = "This field is required";
-    document.getElementById(dateType).style.border = "1px solid var(--Light-red)";
+    document.getElementById(dateType).style.border =
+      "1px solid var(--Light-red)";
     return false;
-  } else if (isNaN(inputValueNumber) || inputValueNumber < minVal || inputValueNumber > maxVal) {
+  } else if (
+    isNaN(inputValueNumber) ||
+    inputValueNumber < minVal ||
+    inputValueNumber > maxVal
+  ) {
     // Handle invalid number or out-of-range input
     label.style.color = "var(--Light-red)";
     requiredLabel.innerHTML = "Must be a valid " + dateType;
     requiredLabel.style.display = "block";
-    document.getElementById(dateType).style.border = "1px solid var(--Light-red)";
+    document.getElementById(dateType).style.border =
+      "1px solid var(--Light-red)";
     return false;
   } else if (dateType === "day") {
     // Check for valid day based on selected month
@@ -107,7 +121,8 @@ function validateInput(input, label, requiredLabel, dateType, minVal, maxVal, cu
       label.style.color = "var(--Light-red)";
       requiredLabel.innerHTML = "Must be a valid date";
       requiredLabel.style.display = "block";
-      document.getElementById(dateType).style.border = "1px solid var(--Light-red)";
+      document.getElementById(dateType).style.border =
+        "1px solid var(--Light-red)";
       return false;
     }
   } else if (dateType === "year" && inputValueNumber > currentYear) {
@@ -115,7 +130,8 @@ function validateInput(input, label, requiredLabel, dateType, minVal, maxVal, cu
     label.style.color = "var(--Light-red)";
     requiredLabel.innerHTML = "Must be in the past";
     requiredLabel.style.display = "block";
-    document.getElementById(dateType).style.border = "1px solid var(--Light-red)";
+    document.getElementById(dateType).style.border =
+      "1px solid var(--Light-red)";
     return false;
   }
 
@@ -125,4 +141,3 @@ function validateInput(input, label, requiredLabel, dateType, minVal, maxVal, cu
   document.getElementById(dateType).style.border = "";
   return true;
 }
-
